@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use environment variable for API URL, fallback to Railway backend URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://team-task-manager-backend.railway.app/api';
+// Use your Render backend URL
+const API_BASE_URL = 'https://team-task-manager-ojso.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
