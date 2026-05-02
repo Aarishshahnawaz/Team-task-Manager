@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
     message: 'Team Task Manager API',
     version: '2.0.0',
     status: 'Running',
+    environment: process.env.NODE_ENV || 'production',
     features: [
       'User Authentication (JWT)',
       'User Management',
@@ -44,7 +45,8 @@ app.get('/health', (req, res) => {
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    database: 'Connected'
+    database: 'Connected',
+    environment: process.env.NODE_ENV || 'production'
   });
 });
 
@@ -68,6 +70,6 @@ app.use('*', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'production'} mode on port ${PORT}`);
 });
