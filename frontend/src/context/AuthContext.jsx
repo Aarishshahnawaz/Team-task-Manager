@@ -38,7 +38,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
+      console.log('Attempting login with:', { email: credentials.email });
       const response = await authAPI.login(credentials);
+      console.log('Login response:', response);
+      
       const { token, user } = response;
       
       localStorage.setItem('token', token);
@@ -47,6 +50,9 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (error) {
+      console.error('Login error:', error);
+      console.error('Error response:', error.response?.data);
+      
       return { 
         success: false, 
         message: error.response?.data?.message || 'Login failed' 
@@ -56,7 +62,10 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
+      console.log('Attempting signup with:', { email: userData.email, name: userData.name });
       const response = await authAPI.signup(userData);
+      console.log('Signup response:', response);
+      
       const { token, user } = response;
       
       localStorage.setItem('token', token);
@@ -65,6 +74,9 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (error) {
+      console.error('Signup error:', error);
+      console.error('Error response:', error.response?.data);
+      
       return { 
         success: false, 
         message: error.response?.data?.message || 'Signup failed' 
