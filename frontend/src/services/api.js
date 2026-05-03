@@ -4,16 +4,16 @@ import axios from 'axios';
 const getApiUrl = () => {
   // Use environment variable if available, otherwise fallback
   if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+    return import.meta.env.VITE_API_URL.replace('/api', '');
   }
   
-  // In production, use Railway backend URL
+  // In production, use Railway backend URL (without /api)
   if (import.meta.env.PROD) {
-    return 'https://team-task-manager-production-d6bc.up.railway.app/api';
+    return 'https://team-task-manager-production-d6bc.up.railway.app';
   }
   
-  // In development, use localhost
-  return 'http://localhost:5000/api';
+  // In development, use localhost (without /api)
+  return 'http://localhost:5000';
 };
 
 const API_BASE_URL = getApiUrl();
