@@ -2,18 +2,18 @@ import axios from 'axios';
 
 // Dynamic API URL based on environment
 const getApiUrl = () => {
-  // Use environment variable if available, otherwise fallback
+  // Use environment variable if available
   if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL.replace('/api', '');
+    return import.meta.env.VITE_API_URL;
   }
   
-  // In production, use Railway backend URL (without /api)
+  // In production, use Railway backend URL with /api
   if (import.meta.env.PROD) {
-    return 'https://team-task-manager-production-d6bc.up.railway.app';
+    return 'https://team-task-manager-production-d6bc.up.railway.app/api';
   }
   
-  // In development, use localhost (without /api)
-  return 'http://localhost:5000';
+  // In development, use localhost with /api
+  return 'http://localhost:5000/api';
 };
 
 const API_BASE_URL = getApiUrl();
