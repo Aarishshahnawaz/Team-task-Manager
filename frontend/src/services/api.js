@@ -2,10 +2,16 @@ import axios from 'axios';
 
 // Dynamic API URL based on environment
 const getApiUrl = () => {
-  // In production, use the same domain as the frontend
-  if (import.meta.env.PROD) {
-    return '/api';
+  // Use environment variable if available, otherwise fallback
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
   }
+  
+  // In production, use Railway backend URL
+  if (import.meta.env.PROD) {
+    return 'https://team-task-manager-production-d6bc.up.railway.app/api';
+  }
+  
   // In development, use localhost
   return 'http://localhost:5000/api';
 };
