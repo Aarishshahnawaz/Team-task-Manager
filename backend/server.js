@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 const corsMiddleware = require('./middleware/cors');
@@ -22,22 +23,33 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/projects', require('./routes/projects'));
 app.use('/api/tasks', require('./routes/tasks'));
 
-// Basic route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Team Task Manager API',
-    version: '2.0.0',
-    status: 'Running',
-    environment: process.env.NODE_ENV || 'production',
-    features: [
-      'User Authentication (JWT)',
-      'User Management',
-      'Project Management',
-      'Task Management',
-      'Role-based Access Control'
-    ]
+// Serve static files from the React app in production
+if (process.env.NODE_ENV === 'production') {
+  const frontendPath = path.join(__dirname, '../frontend/dist');
+  app.use(express.static(frontendPath));
+  
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
   });
-});
+} else {
+  // Basic route for development
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Team Task Manager API',
+      version: '2.0.0',
+      status: 'Running',
+      environment: process.env.NODE_ENV || 'development',
+      features: [
+        'User Authentication (JWT)',
+        'User Management',
+        'Project Management',
+        'Task Management',
+        'Role-based Access Control'
+      ]
+    });
+  });
+}
 
 // Health check route
 app.get('/health', (req, res) => {
@@ -60,16 +72,16 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Handle 404
-app.use('*', (req, res) => {
+// Handle 404 for API routes only
+app.use('/api/*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Route not found'
+    message: 'API route not found'
   });
 });
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV || 'production'} mode on port ${PORT}`);
 });

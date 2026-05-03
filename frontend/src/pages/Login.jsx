@@ -38,52 +38,69 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>Login</h2>
-        
-        {error && <div className="error-message">{error}</div>}
-        
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter your email"
-            />
+    <div className="auth-page">
+      {/* Header */}
+      <header className="auth-header">
+        <Link to="/" className="logo">
+          <div className="logo-icon">TM</div>
+          <span className="logo-text">Team Task Manager</span>
+        </Link>
+      </header>
+
+      {/* Main Content */}
+      <main className="auth-main">
+        <div className="auth-container">
+          <div className="auth-card">
+            <div className="auth-card-header">
+              <h1>Welcome Back!</h1>
+              <p>Sign in to your account to continue</p>
+            </div>
+            
+            {error && <div className="error-message">{error}</div>}
+            
+            <form onSubmit={handleSubmit} className="auth-form">
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your password"
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                className="btn btn-primary btn-full"
+                disabled={loading}
+              >
+                {loading ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+
+            <div className="auth-footer">
+              <p>Don't have an account? <Link to="/signup" className="auth-link">Create Account</Link></p>
+              <Link to="/" className="back-link">← Back to Home</Link>
+            </div>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="Enter your password"
-            />
-          </div>
-
-          <button 
-            type="submit" 
-            className="btn btn-primary btn-full"
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-
-        <p className="auth-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </p>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

@@ -1,7 +1,16 @@
 import axios from 'axios';
 
-// Use your Render backend URL
-const API_BASE_URL = 'https://team-task-manager-ojso.onrender.com/api';
+// Dynamic API URL based on environment
+const getApiUrl = () => {
+  // In production, use the same domain as the frontend
+  if (import.meta.env.PROD) {
+    return '/api';
+  }
+  // In development, use localhost
+  return 'http://localhost:5000/api';
+};
+
+const API_BASE_URL = getApiUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,

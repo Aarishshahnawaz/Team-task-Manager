@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { taskAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import '../dashboard-fix.css';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -49,7 +50,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-header">
         <h1>Welcome back, {user?.name}!</h1>
-        <p>Here's an overview of your tasks</p>
+        <p>Here's an overview of your task progress</p>
       </div>
 
       {error && (
