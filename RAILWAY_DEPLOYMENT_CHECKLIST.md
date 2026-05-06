@@ -8,12 +8,7 @@
 - [ ] `Procfile` is in root directory
 - [ ] Root `package.json` is configured
 
-### 2. Environment Variables Ready
-- [ ] `MONGODB_URI=mongodb+srv://aarish:khan098@cluster0.zvootjk.mongodb.net/taskmanager`
-- [ ] `NODE_ENV=production` ⚠️ **VERY IMPORTANT - Must be set manually in Railway**
-- [ ] `JWT_SECRET=team-task-manager-super-secret-jwt-key-for-production`
-- [ ] `JWT_EXPIRE=30d`
-- [ ] `PORT=5000` (Railway will override this automatically)
+
 
 ### 3. Database Setup
 - [ ] MongoDB Atlas cluster is created
