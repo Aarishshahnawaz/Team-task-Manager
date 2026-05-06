@@ -7,7 +7,7 @@ const Signup = () => {
     name: '',
     email: '',
     password: '',
-    role: 'member'
+    role: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -107,7 +107,9 @@ const Signup = () => {
                   name="role"
                   value={formData.role}
                   onChange={handleChange}
+                  required
                 >
+                  <option value="" disabled>Select Account Type</option>
                   <option value="member">Team Member</option>
                   <option value="admin">Project Admin</option>
                 </select>
