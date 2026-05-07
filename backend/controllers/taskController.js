@@ -74,7 +74,7 @@ const getTasks = async (req, res) => {
   try {
     const { projectId, status } = req.query;
     
-    // Build query - get tasks from projects user has access to
+    // Build query - get tasks from projects user has access to OR tasks assigned to user
     const userProjects = await Project.find({
       $or: [
         { createdBy: req.user.id },
@@ -83,7 +83,10 @@ const getTasks = async (req, res) => {
     }).select('_id');
     
     let query = {
-      projectId: { $in: userProjects.map(p => p._id) }
+      $or: [
+        { projectId: { $in: userProjects.map(p => p._id) } }, // Tasks from user's projects
+        { assignedTo: req.user.id } // Tasks assigned to user
+      ]
     };
     
     // Add filters
